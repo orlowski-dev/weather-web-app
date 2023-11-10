@@ -31,10 +31,24 @@ export async function getGeoDataByName(
   return !res.ok ? undefined : await res.json();
 }
 
-export async function getWeather({ lat, lon, units, lang }: IGetWeatherProps) {
+export async function getWeather({
+  lat,
+  lon,
+  units,
+  lang,
+}: IGetWeatherProps): Promise<IWeatherData | undefined> {
   const apiCall = `https://api.openweathermap.org/data/2.5/weather?units=${
     units || "metric"
   }&lang=${lang || "en"}&lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+  const res = await fetch(apiCall);
+  return !res.ok ? undefined : await res.json();
+}
+
+export async function getAirPollution(
+  lat: number,
+  lon: number
+): Promise<IAirPollution | undefined> {
+  const apiCall = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
   const res = await fetch(apiCall);
   return !res.ok ? undefined : await res.json();
 }

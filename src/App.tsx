@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { geolocationWatcher } from "./lib/geoloactionAPI";
-import { getGeoDataByCoords, getWeather } from "./lib/getData";
+import { getAirPollution, getGeoDataByCoords, getWeather } from "./lib/getData";
 import Searchbar from "./components/Searchbar";
 import { canUpdateWeather } from "./lib/utils";
 
@@ -11,6 +11,9 @@ export default function App() {
   >(undefined);
   const [watherData, setWeatherData] = useState<
     IWeatherData | null | undefined
+  >(null);
+  const [airPollution, setAirPollution] = useState<
+    IAirPollution | undefined | null
   >(null);
 
   const geolocationSuccessCallback = (location: GeolocationPosition) => {
@@ -43,6 +46,16 @@ export default function App() {
       setWeatherData(JSON.parse(weatherLS));
     }
 
+    // check for airPolluton in LS
+    const airPollutionLS = localStorage.getItem("airPollution");
+    if (airPollutionLS) {
+      console.log();
+      const tmpAirPollution = JSON.parse(airPollutionLS) as IAirPollution;
+      if (tmpAirPollution) {
+        setAirPollution(tmpAirPollution);
+      }
+    }
+
     // check for location is LS
     const locationLS = localStorage.getItem("location");
     if (locationLS) {
@@ -69,6 +82,7 @@ export default function App() {
     };
   }, []);
 
+  // on currentLocation change
   useEffect(() => {
     if (!currentLocation || !canUpdateWeather(currentLocation.name)) return;
 
@@ -79,6 +93,10 @@ export default function App() {
       setWeatherData(res);
       localStorage.setItem("weather", JSON.stringify(res));
       localStorage.setItem("weatherLastUpdate", new Date().toString());
+    });
+    getAirPollution(currentLocation.lat, currentLocation.lon).then((res) => {
+      setAirPollution(res);
+      localStorage.setItem("airPollution", JSON.stringify(res));
     });
   }, [currentLocation]);
 
@@ -104,6 +122,11 @@ export default function App() {
         <div>
           <p>{watherData.main.temp}</p>
           <p>{watherData.weather[0].description}</p>
+        </div>
+      )}
+      {airPollution && (
+        <div>
+          <p>{airPollution.list[0].components.co}</p>
         </div>
       )}
     </main>
