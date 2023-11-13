@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { geolocationWatcher } from "./lib/geoloactionAPI";
 import { getAirPollution, getGeoDataByCoords, getWeather } from "./lib/getData";
-import Searchbar from "./components/Searchbar";
 import { canUpdateWeather } from "./lib/utils";
-import CurrentWeather from "./components/CurrentWeather";
+import Searchbar from "./components/Searchbar";
 import "./App.css";
-import WeatherDetails from "./components/WeatherDetails";
 
 export default function App() {
   const [isLocationDenied, setIsLocationDenied] = useState(false);
@@ -115,12 +113,7 @@ export default function App() {
         </p>
       )}
       <section className="current-weather-section">
-        {weatherData && currentLocation ? (
-          <>
-            <CurrentWeather location={currentLocation} weather={weatherData} />
-            <WeatherDetails weather={weatherData} />
-          </>
-        ) : undefined}
+        {weatherData && currentLocation ? <></> : undefined}
       </section>
     </main>
   );

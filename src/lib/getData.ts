@@ -25,7 +25,7 @@ export async function getGeoDataByName(
   name: string,
   signal?: AbortSignal
 ): Promise<ICurrentLocation[] | undefined> {
-  const apiCall = `http://api.openweathermap.org/geo/1.0/direct?q=${name}&limit=5&appid=${API_KEY}`;
+  const apiCall = `http://api.openweathermap.org/geo/1.0/direct?q=${name}&limit=10&appid=${API_KEY}`;
   const res = await fetch(apiCall, { signal });
 
   return !res.ok ? undefined : await res.json();
