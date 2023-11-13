@@ -3,13 +3,16 @@ import { geolocationWatcher } from "./lib/geoloactionAPI";
 import { getAirPollution, getGeoDataByCoords, getWeather } from "./lib/getData";
 import Searchbar from "./components/Searchbar";
 import { canUpdateWeather } from "./lib/utils";
+import CurrentWeather from "./components/CurrentWeather";
+import "./App.css";
+import WeatherDetails from "./components/WeatherDetails";
 
 export default function App() {
   const [isLocationDenied, setIsLocationDenied] = useState(false);
   const [currentLocation, setCurrentLocation] = useState<
     ICurrentLocation | undefined
   >(undefined);
-  const [watherData, setWeatherData] = useState<
+  const [weatherData, setWeatherData] = useState<
     IWeatherData | null | undefined
   >(null);
   const [airPollution, setAirPollution] = useState<
@@ -93,6 +96,7 @@ export default function App() {
       setWeatherData(res);
       localStorage.setItem("weather", JSON.stringify(res));
       localStorage.setItem("weatherLastUpdate", new Date().toString());
+      localStorage.setItem("location", JSON.stringify(currentLocation));
     });
     getAirPollution(currentLocation.lat, currentLocation.lon).then((res) => {
       setAirPollution(res);
@@ -101,34 +105,23 @@ export default function App() {
   }, [currentLocation]);
 
   return (
-    <main className="container-680">
+    <main>
       <Searchbar callback={searchbarResponseCallback} />
-      <h1>Weather Web App</h1>
+      <h1>Current weather</h1>
       {isLocationDenied && (
         <p>
           Browser geolocation is blocked by the user. Please enter your location
           manually.
         </p>
       )}
-      {currentLocation && (
-        <p>
-          {currentLocation.lon}, {currentLocation.lat}
-          <br />
-          {currentLocation.name}, {currentLocation.state}{" "}
-          {currentLocation.country}
-        </p>
-      )}
-      {watherData && (
-        <div>
-          <p>{watherData.main.temp}</p>
-          <p>{watherData.weather[0].description}</p>
-        </div>
-      )}
-      {airPollution && (
-        <div>
-          <p>{airPollution.list[0].components.co}</p>
-        </div>
-      )}
+      <section className="current-weather-section">
+        {weatherData && currentLocation ? (
+          <>
+            <CurrentWeather location={currentLocation} weather={weatherData} />
+            <WeatherDetails weather={weatherData} />
+          </>
+        ) : undefined}
+      </section>
     </main>
   );
 }

@@ -1,0 +1,19 @@
+.content-sp div {
+  display: grid;
+  gap: 8px;
+}
+.content-sp div p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-sp .extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+main {
+  padding: 30px;
+}

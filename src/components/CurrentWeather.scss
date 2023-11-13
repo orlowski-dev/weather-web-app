@@ -1,0 +1,57 @@
+.current-weather-section {
+  display: grid;
+  gap: 24px;
+
+  article header {
+    text-align: center;
+    h2 {
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      svg {
+        stroke: var(--orange);
+      }
+    }
+
+    .svg-icon {
+      width: 20px;
+      height: 20px;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+      svg path {
+        stroke: none;
+        fill: var(--orange);
+      }
+    }
+
+    margin-bottom: 24px;
+  }
+
+  article {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .temp-and-cond {
+    text-align: center;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+
+      h2 {
+        font-size: 4rem;
+        margin: 0;
+      }
+    }
+  }
+}
