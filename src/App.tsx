@@ -116,13 +116,13 @@ export default function App() {
           </p>
         </div>
       ) : undefined}
-      {weatherData && currentLocation && airPollution ? (
+      {weatherData ? (
         <>
           <CurrentWeather weather={weatherData} />
           <CurrentWeatherDetails weather={weatherData} />
-          <AirPollution airPollution={airPollution} />
         </>
       ) : undefined}
+      {airPollution && <AirPollution airPollution={airPollution} />}
     </main>
   );
 }
