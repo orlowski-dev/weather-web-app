@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getGeoDataByName } from "../lib/getData";
 import "./Searchbar.scss";
 
@@ -13,7 +13,27 @@ export default function Searchbar({
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const resRef = useRef<HTMLDivElement>(null);
-  let canClose = false;
+
+  useEffect(() => {
+    const handleClickOutside = (ev: MouseEvent) => {
+      console.log(typeof ev.target);
+      // if clicked outside the input and clicked element its not a response li elem.
+      if (!resRef.current) return;
+      if (
+        !resRef.current?.contains(ev.target as Node) &&
+        inputRef.current &&
+        !inputRef.current.contains(ev.target as Node)
+      ) {
+        resRef.current.style.display = "none";
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (inputValue.length < 2) {
@@ -49,10 +69,6 @@ export default function Searchbar({
           if (!resRef.current) return;
           resRef.current.style.display = "block";
         }}
-        onBlur={() => {
-          if (!resRef.current || !canClose) return;
-          resRef.current.style.display = "none";
-        }}
       />
       {resData !== null ? (
         <div className="result" ref={resRef}>
@@ -67,7 +83,6 @@ export default function Searchbar({
                     callback({ country, lat, lon, name, state });
                     setResData(null);
                     inputRef.current!.value = "";
-                    canClose = true;
                   }}
                 >
                   {elem.name}, {elem.state} {elem.country}
