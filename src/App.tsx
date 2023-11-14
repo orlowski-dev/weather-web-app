@@ -4,6 +4,9 @@ import { getAirPollution, getGeoDataByCoords, getWeather } from "./lib/getData";
 import { canUpdateWeather } from "./lib/utils";
 import Searchbar from "./components/Searchbar";
 import "./App.css";
+import CurrentWeather from "./components/CurrentWeather";
+import CurrentWeatherDetails from "./components/CurrentWeatherDetails";
+import AirPollution from "./components/AirPollution";
 
 export default function App() {
   const [isLocationDenied, setIsLocationDenied] = useState(false);
@@ -105,16 +108,19 @@ export default function App() {
   return (
     <main>
       <Searchbar callback={searchbarResponseCallback} />
-      <h1>Current weather</h1>
-      {isLocationDenied && (
+      {isLocationDenied && !currentLocation ? (
         <p>
           Browser geolocation is blocked by the user. Please enter your location
           manually.
         </p>
-      )}
-      <section className="current-weather-section">
-        {weatherData && currentLocation ? <></> : undefined}
-      </section>
+      ) : undefined}
+      {weatherData && currentLocation && airPollution ? (
+        <>
+          <CurrentWeather weather={weatherData} />
+          <CurrentWeatherDetails weather={weatherData} />
+          <AirPollution airPollution={airPollution} />
+        </>
+      ) : undefined}
     </main>
   );
 }

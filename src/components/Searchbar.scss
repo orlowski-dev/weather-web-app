@@ -1,5 +1,6 @@
 .searchbar {
   max-width: 460px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
   border-radius: 10px 10px 0 0;
@@ -17,12 +18,17 @@
     }
   }
 
+  &:focus-within {
+    background-color: white;
+  }
+
   .result {
-    top: calc(100% + 10px);
+    top: 100%;
     background-color: white;
     position: absolute;
+    box-shadow: 3px 3px 18px rgba(138, 136, 136, 0.2);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px;
     max-width: 460px;
     width: 100%;
     z-index: 99;

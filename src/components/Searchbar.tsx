@@ -16,7 +16,6 @@ export default function Searchbar({
 
   useEffect(() => {
     const handleClickOutside = (ev: MouseEvent) => {
-      console.log(typeof ev.target);
       // if clicked outside the input and clicked element its not a response li elem.
       if (!resRef.current) return;
       if (

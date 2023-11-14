@@ -4,6 +4,13 @@
   --orange: #ff6348;
   --gray-1: #f1f2f6;
   --gray-2: #dfe4ea;
+  --gray-3: #57606f;
+
+  --green: #2ed573;
+  --yellow: #f1a71e;
+  --orange-2: #ff6348;
+  --red: #ff4757;
+  --dark-red: #a1303a;
 }
 
 * {
@@ -15,4 +22,21 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--gray-1);
+}
+
+.d-if {
+  display: inline-flex;
+}
+
+.ai-c {
+  align-items: center;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+p,
+td {
+  color: var(--gray-3);
 }

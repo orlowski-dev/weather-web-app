@@ -1,0 +1,99 @@
+.card {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 460px;
+  width: 100%;
+  margin: 0 auto;
+  header {
+    h2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1rem;
+
+      span,
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      svg {
+        stroke: var(--orange);
+      }
+    }
+  }
+  .cw-d {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+    img {
+      max-width: 140px;
+      width: 100%;
+    }
+    h3 {
+      font-size: 4rem;
+      margin: 0;
+    }
+  }
+  p {
+    text-align: center;
+  }
+
+  .cw-details {
+    margin-top: 24px;
+    width: 100%;
+    display: block;
+    tbody {
+      width: 100%;
+      display: block;
+    }
+    thead {
+      display: block;
+      width: 100%;
+      tr {
+        width: 100%;
+        display: grid;
+        align-items: center;
+
+        th {
+          font-weight: normal;
+          text-align: left;
+        }
+
+        th:last-child {
+          text-align: right;
+        }
+      }
+    }
+    tr {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 12px;
+      margin: 8px 0;
+    }
+    td:nth-child(even) {
+      text-align: right;
+    }
+    td {
+      &.index-1 {
+        color: var(--green);
+      }
+      &.index-2 {
+        color: var(--yellow);
+      }
+      &.index-3 {
+        color: var(--orange-2);
+      }
+      &.index-4 {
+        color: var(--red);
+      }
+      &.index-5 {
+        color: var(--dark-red);
+      }
+    }
+  }
+}
