@@ -109,10 +109,12 @@ export default function App() {
     <main>
       <Searchbar callback={searchbarResponseCallback} />
       {isLocationDenied && !currentLocation ? (
-        <p>
-          Browser geolocation is blocked by the user. Please enter your location
-          manually.
-        </p>
+        <div className="notify-geo">
+          <p>
+            Browser geolocation is blocked by the user. Please enter your
+            location manually.
+          </p>
+        </div>
       ) : undefined}
       {weatherData && currentLocation && airPollution ? (
         <>
